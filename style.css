@@ -23,7 +23,7 @@ li {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    background-color: teal;
+    background-color: darkmagenta;
     color: #fff;
 }
 .nav-links a {
@@ -32,6 +32,7 @@ li {
 
 .logo {
     font-size: 32px;
+    color: #fff;
 }
 
 .menu {
@@ -52,35 +53,6 @@ li {
     position: relative; 
 }
 
-.dropdown {
-    background-color: rgb(1, 139, 139);
-    padding: 1em 0;
-    position: absolute; 
-    display: none;
-    border-radius: 8px;
-    top: 35px;
-}
-
-.dropdown li + li {
-    margin-top: 10px;
-}
-
-.dropdown li {
-    padding: 0.5em 1em;
-    width: 8em;
-    text-align: center;
-}
-
-.dropdown li:hover {
-    background-color: #4c9e9e;
-}
-
-.services:hover .dropdown {
-    display: block;
-}
-
-/*RESPONSIVE NAVBAR MENU STARTS*/
-/* CHECKBOX HACK */
 input[type=checkbox]{
     display: none;
 } 
@@ -95,7 +67,7 @@ input[type=checkbox]{
 .menu { 
     display:none;
     position: absolute;
-    background-color:teal;
+    background-color:darkmagenta;
     right: 0;
     left: 0;
     text-align: center;
@@ -121,6 +93,6 @@ input[type=checkbox]:checked ~ .menu{
     transform: translateX(35%);
 }
 .dropdown li:hover {
-    background-color: #4c9e9e;
+    background-color: darkmagenta;
 }
 }
