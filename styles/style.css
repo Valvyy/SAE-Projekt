@@ -49,10 +49,6 @@ li {
     padding: 5px 14px;
 }
 
-.services {
-    position: relative; 
-}
-
 input[type=checkbox]{
     display: none;
 } 
