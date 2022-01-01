@@ -29,6 +29,10 @@ form {
     opacity: 0.8;
   }
   
+  #signin {
+    background-color: #EEE222;
+  }
+
   /* Extra style for the cancel button (red) */
   .cancelbtn {
     width: auto;
