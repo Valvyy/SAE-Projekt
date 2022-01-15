@@ -44,6 +44,7 @@
 
         function showToLogIn()
         {
+            echo "<br><br><br>";
             echo "<p class='cat'>Sie sind nicht angemeldet und können deswegen nicht auf den Katalog zugreifen</p>";
             echo "<p class='cat'>Melden Sie sich an oder registrieren Sie sich, um etwas bestellen zu können!</p>";
             echo "<form action='login.html'>";
