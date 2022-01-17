@@ -101,3 +101,7 @@ input[type=checkbox]:checked ~ .menu{
     margin: auto;
 }
 }
+
+.cat {
+    font-weight: bold;
+}
