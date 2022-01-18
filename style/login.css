@@ -25,7 +25,7 @@ form {
   }
   
   /* Add a hover effect for buttons */
-  button:hover {
+  button:hover, .but:hover{
     opacity: 0.8;
   }
   

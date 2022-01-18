@@ -23,12 +23,11 @@
         function showKatalog()
         {
             //DB-Verbindung
-            $con = mysqli_connect("localhost", "root");
-            mysqli_select_db($con, "Datenbank");
-            //Definieren einer SQL-Query
-            $query = "SELECT * FROM produkt";
-            //Ausführen der Query
-            $res = mysqli_query($con, $query);
+            $connection = mysqli_connect("localhost", "root");
+            mysqli_select_db($connection, "sae-projekt");
+            //Definieren einer SQL-Query, um die Produkte zu bekommen
+            $query = "SELECT * FROM produkt"; 
+            $result = mysqli_query($connection, $query);
 
             //Aufbau der Webseite
             echo "<h1>Wählen Sie ihre Produkte aus unserem großem Sortiment!</h1>";
@@ -37,13 +36,13 @@
             echo "<tr><th>Bestell-Nr.</th><th>Produkt</th><th>Beschreibung</th><th>Preis</th><th>Anzahl</th></tr>";
 
             //Für jedes Produkt ein Tabelleneintrag einfügen
-            for ($i=0; $i<mysqli_num_rows($res); $i++)
+            for ($i=0; $i<mysqli_num_rows($result); $i++)
             {
-                $daten = mysqli_fetch_array($res);
+                $daten = mysqli_fetch_array($result);
                 $prID = $daten["produktid"];
                 $prName = $daten["bezeichnung"];
                 $prBeschr = $daten["beschreibung"];
-                $prPreis = $daten["preis"]
+                $prPreis = $daten["preis"];
                 echo "<tr><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis."</td><td><input type='text' value=0 name='".$prID."' size='1'></td></tr>";
             }
             echo "</table>";
@@ -58,7 +57,7 @@
         function showToLogIn()
         {
             echo "<br><br><br>";
-            echo "<p class='cat'>Sie sind nicht angemeldet und können deswegen nicht auf den Katalog zugreifen</p>";
+            echo "<p class='cat'>Sie sind nicht angemeldet und können deswegen nicht auf den Katalog zugreifen.</p>";
             echo "<p class='cat'>Melden Sie sich an oder registrieren Sie sich, um etwas bestellen zu können!</p>";
             echo "<br><br><br>";
             echo "<form action='login.html'>";
