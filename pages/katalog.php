@@ -43,6 +43,7 @@
                 $prName = $daten["bezeichnung"];
                 $prBeschr = $daten["beschreibung"];
                 $prPreis = $daten["preis"];
+                $prPreis = number_format($prPreis, 2, ',', '.');
                 echo "<tr><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis."</td><td><input type='text' value=0 name='".$prID."' size='1'></td></tr>";
             }
             echo "</table>";
