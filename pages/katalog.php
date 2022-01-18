@@ -70,21 +70,21 @@
     ?>
 </head>
 <body>
-    <nav class="navbar">
-        
-        <div class="logo"><a href="../index.html">SAE-Projekt</a></div>
+<nav class="navbar">
 
-        <ul class="nav-links">
-            <input type="checkbox" id="checkbox_toggle" />
-            <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-                <div class="menu">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="katalog.php">Katalog</a></li>
-                    <li><a href="impressum.html">Impressum</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </div>
-        </ul>
-    </nav>
+<div class="logo"><a href="/index.html" > <font color="white">SAE-Projekt</font></a></div>
+
+<ul class="nav-links">
+    <input type="checkbox" id="checkbox_toggle" />
+    <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+        <div class="menu">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="pages/katalog.php">Katalog</a></li>
+            <li><a href="pages/impressum.html">Impressum</a></li>
+            <li><a href="pages/login.html">Login</a></li>
+        </div>
+</ul>
+</nav>
 
     <center>
         <?php
