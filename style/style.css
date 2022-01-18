@@ -91,6 +91,13 @@ input[type=checkbox]:checked ~ .menu{
 .dropdown li:hover {
     background-color: darkmagenta;
 }
+
+}
+
+.cat {
+    font-weight: bold;
+}
+
 .imgbox {
     display: grid;
     height: 100%;
@@ -99,9 +106,4 @@ input[type=checkbox]:checked ~ .menu{
     max-width: 100%;
     max-height: 100vh;
     margin: auto;
-}
-}
-
-.cat {
-    font-weight: bold;
 }
