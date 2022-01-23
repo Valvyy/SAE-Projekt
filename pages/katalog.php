@@ -43,7 +43,8 @@
                 $prName = $daten["bezeichnung"];
                 $prBeschr = $daten["beschreibung"];
                 $prPreis = $daten["preis"];
-                echo "<tr><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis."</td><td><input type='text' value=0 name='".$prID."' size='1'></td></tr>";
+                $prPreis = number_format($prPreis, 2, ',', '.');
+                echo "<tr><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis." €</td><td><input type='text' value=0 name='".$prID."' size='1'></td></tr>";
             }
             echo "</table>";
             echo "<input type='submit' value='Zum Warenkorb'>";
@@ -70,7 +71,7 @@
     ?>
 </head>
 <body>
-<nav class="navbar">
+    <nav class="navbar">
 
         <div class="logo"><a href="/SAE-Projekt/index.html" > <font color="white">SAE-Projekt</font></a></div>
 
