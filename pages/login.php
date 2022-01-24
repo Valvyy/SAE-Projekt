@@ -7,6 +7,37 @@
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/login.css">
     <title>Login</title>
+    <?php
+        session_start();
+        
+        $kundeID = null;
+        if (isset ($_SESSION["kundeID"]))
+        {
+            $kundeID = $_SESSION["kundeID"];
+        }
+
+        function login() 
+        {
+            echo "<form action='loggingin.php' method='post'>";
+            echo "<div class='container'>";
+            echo "<label for='uname'><b>Nutzername</b></label>";
+            echo "<input type='text' placeholder='Benutzername eingeben' name='uname' required>";
+            echo "<label for='psw'><b>Passwort</b></label>";
+            echo "<input type='password' placeholder='Passwort eingeben' name='psw' required>";
+            echo "<button id='login' name='login' type='submit'>Login</button>";
+            echo "<button id='signin' onclick='location.href='signin.php';'>Kein Konto? Erstellen Sie eins!</button>";
+            echo "</div>";
+            echo "</form>";
+        }
+
+        function alreadyLoggedIn()
+        {
+            echo "<p>Sie sind schon eingeloggt!</p>";
+            echo "<form action='logout.php' metho='post'>";
+            echo "<button id='logout'>Ausloggen</button>";
+            echo "</form>";
+        }
+    ?>
 </head>
 <body>
     <header>
@@ -21,24 +52,24 @@
                         <li><a href="/SAE-Projekt/index.html">Home</a></li>
                         <li><a href="/SAE-Projekt/pages/katalog.php">Katalog</a></li>
                         <li><a href="/SAE-Projekt/pages/impressum.html">Impressum</a></li>
-                        <li><a href="/SAE-Projekt/pages/login.html">Login</a></li>
+                        <li><a href="/SAE-Projekt/pages/login.php">Login</a></li>
                     </div>
             </ul>
         </nav>
     </header>
-    <form action="loggingin.php" method="post">
-      
-        <div class="container">
-          <label for="uname"><b>Nutzername</b></label>
-          <input type="text" placeholder="Benutzername eingeben" name="uname" required>
-      
-          <label for="psw"><b>Passwort</b></label>
-          <input type="password" placeholder="Passwort eingeben" name="psw" required>
-      
-          <button id="login" name="login" type="submit">Login</button>
-          <button id="signin" onclick="location.href='signin.html';">Kein Konto? Erstellen Sie eins!</button>
-        </div>
-      
-      </form>
+
+    <center>
+        <?php
+            //Checken, ob der Kunde angemeldet ist
+            if ($kundeID == null)
+            {
+                login();
+            }
+            else
+            {
+                alreadyLoggedIn();
+            }
+        ?>
+    </center>
 </body>
 </html>

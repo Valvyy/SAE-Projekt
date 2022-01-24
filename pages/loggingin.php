@@ -59,7 +59,7 @@
                 <li><a href="/SAE-Projekt/index.html">Home</a></li>
                 <li><a href="/SAE-Projekt/pages/katalog.php">Katalog</a></li>
                 <li><a href="/SAE-Projekt/pages/impressum.html">Impressum</a></li>
-                <li><a href="/SAE-Projekt/pages/login.html">Login</a></li>
+                <li><a href="/SAE-Projekt/pages/login.php">Login</a></li>
             </div>
         </ul>
     </nav>
