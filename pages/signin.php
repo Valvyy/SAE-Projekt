@@ -45,7 +45,7 @@
           <label for="psw"><b>Passwort</b></label>
           <input type="password" placeholder="Passwort eingeben" name="psw" required>
 
-          <button id="signin" name="register" type="submit">Sign in</button>
+          <button id="signin" name="signin" type="submit">Sign in</button>
         </div>
       
       </form>

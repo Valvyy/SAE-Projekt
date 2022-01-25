@@ -31,7 +31,7 @@
             $connection = mysqli_connect("localhost", "root");
             mysqli_select_db($connection, "i40_basis");
             //Definieren der SQL-Query, um die Logindaten zu bekommen
-            $query = "SELECT * FROM kunde WHERE username = '$uname'";
+            $query = "SELECT * FROM kundenkonto WHERE username = '$uname'";
             $result = mysqli_query($connection, $query);
             $user = mysqli_fetch_array($result);
 
@@ -39,7 +39,7 @@
             $id = null;
             if ($user['username'] == $uname && $psw == $user['passwort'])
             {
-                $id = $user['kundeID'];
+                $id = $user['kunde'];
             }
 
             //Rückgabe ob Login erfolgreich oder nicht

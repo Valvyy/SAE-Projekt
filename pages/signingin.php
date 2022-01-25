@@ -11,7 +11,24 @@
     <?php
         //Erzeugen einer Session ID
         $sesionID = md5(date("h:i:sa"));
+        session_id($sessionID);
+        session_start();
 
+        $kundeID = null;
+        if (isset($_REQUEST["signin"]) && isset($_REQUEST["name"]) && isset($_REQUEST["adress"]) && isset($_REQUEST["email"]) && isset($_REQUEST["uname"]) && isset($_REQUEST["psw"]))
+        {
+            $name = $_POST["name"];
+            $adress = $_POST["adress"];
+            $email = $_POST["email"];
+            $uname = $_POST["uname"];
+            $pwd = $_POST["psw"];
+            $kundeID = ;
+        }
+
+        function register($name, $adress, $email, $)
+        {
+            
+        }
     ?>
 </head>
 <body>
