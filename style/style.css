@@ -101,9 +101,71 @@ input[type=checkbox]:checked ~ .menu{
 .imgbox {
     display: grid;
     height: 100%;
+    position: relative;
+    text-align: center;
+    color: white;
 }
 .center-fit {
     max-width: 100%;
     max-height: 100vh;
     margin: auto;
+    filter: brightness(50%)
 }
+
+.hometext {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: xx-large;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+  thead {
+    background-color: #1c87c9;
+    color: #ffffff;
+  }
+  th {
+    text-align: center;
+    height: 50px;
+  }
+
+  tr {
+      text-align: center;
+  }
+  tbody tr:nth-child(odd) {
+    background: #ffffff;
+  }
+  tbody tr:nth-child(even) {
+    background: #f4f4f4;
+  }
+
+  button, .but {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Add a hover effect for buttons */
+  button:hover, .but:hover{
+    opacity: 0.8;
+  }
+
+
+
+
+
+
+  
