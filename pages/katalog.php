@@ -24,7 +24,7 @@
         {
             //DB-Verbindung
             $connection = mysqli_connect("localhost", "root");
-            mysqli_select_db($connection, "sae-projekt");
+            mysqli_select_db($connection, "i40_basis");
             //Definieren einer SQL-Query, um die Produkte zu bekommen
             $query = "SELECT * FROM produkt"; 
             $result = mysqli_query($connection, $query);

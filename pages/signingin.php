@@ -25,9 +25,34 @@
             $kundeID = ;
         }
 
-        function register($name, $adress, $email, $)
+        function register($name, $adress, $email, $uname, $psw)
         {
+            $connection = mysqli_connect("localhost", "root");
+            mysqli_select_db($connection, "i40_basis");
+            $query = "INSERT INTO kunde (`name`, `adresse`) VALUES ($name, $adress)";
+            $result = mysqli_query($connection, $query);
             
+            $user = null;
+            $query = "SELECT username FROM kundenkonto WHERE username = '$uname'";
+            $result = mysqli_query($connection, $query);
+            $user = mysqli_fetch_array($result);
+
+            $mail = null;
+            $query = "SELECT email FROM kundenkonto WHERE email = '$email'";
+            $result = mysqli_query($connection, $query);
+            $mail = mysqli_fetch_array($result);
+
+            if ($user != null;)
+            {
+                
+            }
+
+            $query = "SELECT kundeid FROM kunde WHERE `name` = '$name'";
+            $result = mysqli_query($connection, $query);
+            $kunde = mysqli_fetch_array($result);
+
+            $query = "INSERT INTO `kundenkonto` (`kunde`, `username`, `passwort`, `email`) VALUES ($kunde, $uname, $psw, $email)";
+            $result = mysqli_query($connection, $query);
         }
     ?>
 </head>
