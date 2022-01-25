@@ -47,8 +47,8 @@
                 echo "<tr><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis." €</td><td><input type='text' value=0 name='".$prID."' size='1'></td></tr>";
             }
             echo "</table>";
-            echo "<input type='submit' value='Zum Warenkorb'>";
-            echo "<input type='reset' value='Zurücksetzen'>";
+            echo "<input type='submit' value='Zum Warenkorb' class='but'>";
+            echo "<input type='reset' value='Zurücksetzen' class='but'>";
             echo "</form>";
             //Vollenden der Webseite
         }
