@@ -25,7 +25,7 @@
             echo "<label for='psw'><b>Passwort</b></label>";
             echo "<input type='password' placeholder='Passwort eingeben' name='psw' required>";
             echo "<button id='login' name='login' type='submit'>Login</button>";
-            echo "<button id='signin' onclick='location.href='signin.php';'>Kein Konto? Erstellen Sie eins!</button>";
+            echo "<button id='signin' onclick='location.href=\"signin.php\";'>Kein Konto? Erstellen Sie eins!</button>";
             echo "</div>";
             echo "</form>";
         }

@@ -15,13 +15,13 @@
         session_start();
 
         
-        $kunde_id = null;
+        $kundeID = null;
         if (isset($_REQUEST["login"]) && isset($_REQUEST["uname"]) && isset($_REQUEST["psw"])) 
         {
             $name = $_POST['uname'];
             $pw = $_POST['psw'];
-            $kunde_id = checkData($name, $pw);
-            $_SESSION['kundeID'] = $kunde_id; 
+            $kundeID = checkData($name, $pw);
+            $_SESSION['kundeID'] = $kundeID; 
         }
 
         //Funktion, um Login-Daten zu checken
@@ -29,17 +29,17 @@
         {
             //DB-Verbindung
             $connection = mysqli_connect("localhost", "root");
-            mysqli_select_db($connection, "sae-projekt");
+            mysqli_select_db($connection, "i40_basis");
             //Definieren der SQL-Query, um die Logindaten zu bekommen
-            $query = "SELECT * FROM kundenkonto WHERE benutzername = '$uname'";
+            $query = "SELECT * FROM kunde WHERE username = '$uname'";
             $result = mysqli_query($connection, $query);
             $user = mysqli_fetch_array($result);
 
             //Checken, ob Passwort und Username richtig sind
             $id = null;
-            if ($user['benutzername'] == $uname && $psw == $user['passwort'])
+            if ($user['username'] == $uname && $psw == $user['passwort'])
             {
-                $id = $user['kontoid'];
+                $id = $user['kundeID'];
             }
 
             //Rückgabe ob Login erfolgreich oder nicht
@@ -67,11 +67,11 @@
         <h1>Log In</h1>
 
         <?php
-            if ($kunde_id == null)
+            if ($kundeID == null)
             {
                 echo "<p>Nutzername oder Passwort ist falsch!</p>";
                 echo "<p>Bitte versuchen Sie es nochmal</p>";
-                echo "<form action='login.html' method='get'>";
+                echo "<form action='login.php' method='get'>";
                 echo "<input type='submit' value='Zum Login'>";
                 echo "</form>";
             }
