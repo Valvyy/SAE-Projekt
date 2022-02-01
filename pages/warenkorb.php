@@ -20,15 +20,135 @@
                 {
                     $_SESSION["warenkorb"] = array();
                 }
-                else
-                {
-                    
-                }
-
+                warenRein();
             }
+            if (isset($_REQUEST["empty"]))
+            {
+                warenLeeren();
+            }
+
+
+            warenRein()
+            {
+                $connection = new mysqli('localhost', 'root', '', 'i40_basis');
+
+                $sql = "SELECT produktid FROM produkt";
+                $erg = $connection->query($sql);
+
+                for ($i = 0; $i < mysqli_num_rows($erg); $i++)
+                {
+                    $daten = mysqli_fetch_array($erg);
+                    $produkt = $daten['produktid'];
+
+                    if (isset($_REQUEST[$produkt]))
+                    {
+                        if ($_REQUEST[$produkt] > 0)
+                        {
+                            if (!isset($_SESSION["warenkorb"][$produkt]))
+                            {
+                                $_SESSION["warenkorb"][$produkt] = $_REQUEST[$produkt];
+                            }
+                            else
+                            {
+                                $_SESSION["warenkorb"][$produkt] += $_REQUEST[$produkt];
+                            }
+                        }
+                    }
+                }
+            }
+
+            warenLeeren()
+            {
+                foreach ($_SESSION["warenkorb"] as $produkt => $menge)
+                {
+                    unset($_SESSION["warenkorb"][$produkt]);
+                }
+            }
+
+            warenZeigen()
+            {
+                $connection = new mysqli('localhost', 'root', '', 'i40_basis');
+
+                echo "<table>";
+                echo "<tr><th>Bestell-Nr,</th><th>Bezeichnung</th><th>Anzhahl</th><th>Preis</th></tr>";
+                
+                foreach ($_SESSION["warenkorb"] as $produkt => $menge)
+                {
+                    $sql = "SELECT bezeichnung, preis FROM produkt WHERE produktid = '$produkt'";
+                    $erg = $connection->query($sql);
+                    $daten = mysqli_fetch_array($erg);
+                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$anzahl."</td><td>".$daten["preis"]."</td></tr>";
+                }
+                echo "</table>";
+    
+                echo "<form action='bezahlen.php' method='get'>";
+                echo "<input type='submit' value='Jetzt kaufen!'>";
+                echo "</form>";
+
+                echo "<form action='warenkorb.php' method='get'>";
+                echo "<input type='submit' value='Warenkorb löschen' name='leeren'>";
+                echo "</form>";
+            }
+
+            function showToLogIn()
+            {
+                echo "<br><br><br>";
+                echo "<p class='cat'>Sie sind nicht angemeldet und können deswegen nicht auf den Katalog zugreifen.</p>";
+                echo "<p class='cat'>Melden Sie sich an oder registrieren Sie sich, um etwas bestellen zu können!</p>";
+                echo "<br><br><br>";
+                echo "<form action='login.php'>";
+                echo "<input type='submit' value='Log In' class='but' />";
+                echo "</form>";
+                echo "<form action='signin.php'>";
+                echo "<input type='submit' value='Sign In' class='but' />";
+                echo "</form>";
+            }
+
         ?>
     </head>
     <body>
+        <header>
+            <nav class="navbar">
 
+                <div class="logo"><a href="/SAE-Projekt/index.html" > <font color="white">Blackline Solutions GmbH</font></a></div>
+        
+                <ul class="nav-links">
+                    <input type="checkbox" id="checkbox_toggle" />
+                    <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+                        <div class="menu">
+                            <li><a href="/SAE-Projekt/index.html">Home</a></li>
+                            <li><a href="/SAE-Projekt/pages/katalog.php">Katalog</a></li>
+                            <li><a href="/SAE-Projekt/pages/impressum.html">Impressum</a></li>
+                            <li><a href="/SAE-Projekt/pages/login.php">Login</a></li>
+                        </div>
+                </ul>
+            </nav>
+        </header>
+        <center>
+            <?php
+                if ($kundeID == null)
+                {
+                    showToLogIn();
+                }
+                else
+                {
+                    echo "<h1>Warenkorb</h1>";
+
+                    if (count($_SESSION["warenkorb"] == 0))
+                    {
+                        echo "<p>Puhh, sieht ganz schön leer aus. :/</p>";
+                        echo "<p>Vielleicht hilft es, etwas zu kaufen.</p>";
+                    }
+                    else
+                    {
+                        warenZeigen();
+                        
+                    }
+                    echo "<form action='katalog.php' method='get'>";
+                    echo "<input type='submit' value='Weiter einkaufen'>";
+                    echo "</form>";
+                }
+            ?>
+        </center>
     </body>
 </html>
