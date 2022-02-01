@@ -50,7 +50,7 @@
 <body>
     <nav class="navbar">
 
-        <div class="logo"><a href="/SAE-Projekt/index.html" > <font color="white">SAE-Projekt</font></a></div>
+        <div class="logo"><a href="/SAE-Projekt/index.html" > <font color="white">Blackline Solutions GmbH</font></a></div>
 
         <ul class="nav-links">
             <input type="checkbox" id="checkbox_toggle" />
