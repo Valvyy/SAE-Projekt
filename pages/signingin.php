@@ -9,52 +9,64 @@
     <title>Sign In</title>
 
     <?php
-        //Erzeugen einer Session ID
-        $sesionID = md5(date("h:i:sa"));
+        $sessionID = md5(date("h:i:sa"));
         session_id($sessionID);
         session_start();
 
         $kundeID = null;
-        if (isset($_REQUEST["signin"]) && isset($_REQUEST["name"]) && isset($_REQUEST["adress"]) && isset($_REQUEST["email"]) && isset($_REQUEST["uname"]) && isset($_REQUEST["psw"]))
-        {
-            $name = $_POST["name"];
-            $adress = $_POST["adress"];
-            $email = $_POST["email"];
-            $uname = $_POST["uname"];
-            $pwd = $_POST["psw"];
-            $kundeID = ;
-        }
+        $connection = new mysqli('localhost', 'root', '', 'i40_basis');
 
-        function register($name, $adress, $email, $uname, $psw)
+        if (isset ($_REQUEST["signin"]))
         {
-            $connection = mysqli_connect("localhost", "root");
-            mysqli_select_db($connection, "i40_basis");
-            $query = "INSERT INTO kunde (`name`, `adresse`) VALUES ($name, $adress)";
-            $result = mysqli_query($connection, $query);
+            $name = $_POST['name'];
+            $adresse = $_POST['adress'];
+            $email = $_POST['email'];
+            $username = $_POST['uname'];
+            $passwort = $_POST['psw'];
+
+            $sql = "SELECT * FROM kunde WHERE name = '$name' AND adresse = '$adresse'";
+            $result = $connection->query($sql);
+            $kun = mysqli_fetch_array($result);
             
-            $user = null;
-            $query = "SELECT username FROM kundenkonto WHERE username = '$uname'";
-            $result = mysqli_query($connection, $query);
-            $user = mysqli_fetch_array($result);
-
-            $mail = null;
-            $query = "SELECT email FROM kundenkonto WHERE email = '$email'";
-            $result = mysqli_query($connection, $query);
-            $mail = mysqli_fetch_array($result);
-
-            if ($user != null;)
+            if (!$kun)
             {
-                
+                $sql = "INSERT INTO kunde (name, adresse) VALUES ('$name', '$adresse')";
+                $result = $connection->query($sql);
+
+                $sql = "SELECT * FROM kunde WHERE name = '$name' AND adresse = '$adresse'";
+                $result = $connection->query($sql);
+                $kunde = mysqli_fetch_array($result);
+
+                $id = $kunde["kundeid"];
+            }
+            else
+            {
+                $id = $kun["kundeid"];
             }
 
-            $query = "SELECT kundeid FROM kunde WHERE `name` = '$name'";
-            $result = mysqli_query($connection, $query);
-            $kunde = mysqli_fetch_array($result);
 
-            $query = "INSERT INTO `kundenkonto` (`kunde`, `username`, `passwort`, `email`) VALUES ($kunde, $uname, $psw, $email)";
-            $result = mysqli_query($connection, $query);
+            $sql = "SELECT * FROM kundenkonto WHERE username = '$username' OR email = '$email'";
+            $result = $connection->query($sql);
+            $user = mysqli_fetch_array($result);
+ 
+            if (!$user)
+            {
+                $sql = "INSERT INTO kundenkonto (kunde, username, passwort, email) VALUES ('$id', '$username', '$passwort', '$email')";
+                $result = $connection->query($sql);
+
+                $sql = "SELECT kontoid FROM kundenkonto WHERE username = '$username'";
+                $result = $connection->query($sql);
+                $kundeID = mysqli_fetch_array($result);
+            }
+            else
+            {
+                $kundeID = null;
+            }
         }
+
+        $_SESSION["kundeID"] = $kundeID;
     ?>
+
 </head>
 <body>
     <header>
@@ -74,6 +86,28 @@
             </ul>
         </nav>
     </header>
+    <center>
+        <h1>Registrierung</h1>
 
+        <?php
+            if ($kundeID == null)
+            {
+                echo "<p>Nutzername oder Email existieren bereits!</p>";
+                echo "<p>Bitte versuchen Sie es nochmal</p>";
+                echo "<form action='signin.php' method='get'>";
+                echo "<input type='submit' value='Zur Registrierung'>";
+                echo "</form>";
+            }
+            else
+            {
+                echo "<p>Herzlich Willkommen, ".$username."!</p>";
+                echo "<p>Sie wurden angemeldet!</p>";
+                echo "<p>Sie können jetzt einkaufen gehen. Viel Spaß!</p>";
+                echo "<form action='katalog.php' method='get'>";
+                echo "<input type='submit' value='Los gehts!'>";
+                echo "</form>";
+            }
+        ?>
+    </center>
 </body>
 </html>

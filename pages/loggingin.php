@@ -39,7 +39,7 @@
             $id = null;
             if ($user['username'] == $uname && $psw == $user['passwort'])
             {
-                $id = $user['kunde'];
+                $id = $user['kontoid'];
             }
 
             //Rückgabe ob Login erfolgreich oder nicht
