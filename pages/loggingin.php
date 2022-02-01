@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/login.css">
+    <meta http-equiv="refresh" content="3;url=/SAE-Projekt/pages/katalog.php" />
     <title>Login</title>
 
     <?php
@@ -67,22 +68,27 @@
         <h1>Log In</h1>
 
         <?php
+
             if ($kundeID == null)
             {
                 echo "<p>Nutzername oder Passwort ist falsch!</p>";
                 echo "<p>Bitte versuchen Sie es nochmal</p>";
                 echo "<form action='login.php' method='get'>";
-                echo "<input type='submit' value='Zum Login'>";
+                //echo "<input type='submit' class='but' value='Zum Login'>";
                 echo "</form>";
             }
             else
             {
+              
+    
                 echo "<p>Herzlich Willkommen, ".$name."!</p>";
-                echo "<p>Sie wurden angemeldet!</p>";
-                echo "<p>Sie können jetzt einkaufen gehen. Viel Spaß!</p>";
                 echo "<form action='katalog.php' method='get'>";
-                echo "<input type='submit' value='Los gehts!'>";
+                echo "Sie werden in 3 Sekunden weiter geleitet.";
+                //echo "<input type='submit' class='but' value='Los gehts!'>";
                 echo "</form>";
+
+               
+
             }
         ?>
     </center>
