@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="../style/login.css">
     <title>Katalog</title>
 
-    <?php
-        //Session starten
+    <?php //Session starten
         session_start();
 
         //Zuweisen einer KundenID, falls vorhanden
@@ -17,9 +16,10 @@
         if (isset ($_SESSION["kundeID"])) 
         {
             $kundeID = $_SESSION["kundeID"];
-            echo "<script> document.getElementById('loginbtn').innerHTML = 'Logout' </script>";
-
-           
+            $html = new DOMDocument(); 
+            $html-></head><body><p>loadHTMLFile('katalog.php'); 
+            $html-&gt;getElementById('loginbtn')-&gt;nodeValue = 'Login';
+            $html-&gt;saveHTMLFile("katalog.html");
         }
 
         //Funktion zum Anzeigen des Kataloges
@@ -33,25 +33,17 @@
             $result = mysqli_query($connection, $query);
 
             //Aufbau der Webseite
-            echo "<h1>Wählen Sie ihre Produkte aus unserem großem Sortiment!</h1>";
-            echo "<form action='warenkorb.php' method='get'>";
+            echo "</p><h1>W&auml;hlen Sie ihre Produkte aus unserem gro&szlig;em Sortiment!</h1>";
+            echo "<form action="warenkorb.php" method="get">";
             echo "<table>";
             echo "<tr><th>Bestell-Nr.</th><th>Produkt</th><th>Beschreibung</th><th>Preis</th><th>Anzahl</th></tr>";
 
-            //Für jedes Produkt ein Tabelleneintrag einfügen
-            for ($i=0; $i<mysqli_num_rows($result); $i++)
-            {
-                $daten = mysqli_fetch_array($result);
-                $prID = $daten["produktid"];
-                $prName = $daten["bezeichnung"];
-                $prBeschr = $daten["beschreibung"];
-                $prPreis = $daten["preis"];
-                $prPreis = number_format($prPreis, 2, ',', '.');
-                echo "<tr><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis." €</td><td><input type='text' value=0 name='".$prID."' size='1'></td></tr>";
+            //F&uuml;r jedes Produkt ein Tabelleneintrag einf&uuml;gen
+            for ($i=0; $i<mysqli_num_rows mysqli_fetch_array number_format echo><td>".$prID."</td><td>".$prName."</td><td>".$prBeschr."</td><td>".$prPreis." &euro;</td><td><input type="text" value="0" name='".$prID."' size="1"></td>";
             }
-            echo "</table>";
-            echo "<input type='submit' value='Zum Warenkorb' class='but'>";
-            echo "<input type='reset' value='Zurücksetzen' class='but'>";
+            echo "</mysqli_num_rows></table>";
+            echo "<input type="submit" value="Zum Warenkorb" class="but">";
+            echo "<input type="reset" value="Zur&uuml;cksetzen" class="but">";
             echo "</form>";
             //Vollenden der Webseite
         }
@@ -61,38 +53,37 @@
         function showToLogIn()
         {
             echo "<br><br><br>";
-            echo "<p class='cat'>Sie sind nicht angemeldet und können deswegen nicht auf den Katalog zugreifen.</p>";
-            echo "<p class='cat'>Melden Sie sich an oder registrieren Sie sich, um etwas bestellen zu können!</p>";
+            echo "<p class="cat">Sie sind nicht angemeldet und k&ouml;nnen deswegen nicht auf den Katalog zugreifen.</p>";
+            echo "<p class="cat">Melden Sie sich an oder registrieren Sie sich, um etwas bestellen zu k&ouml;nnen!</p>";
             echo "<br><br><br>";
-            echo "<form action='login.php'>";
-            echo "<input type='submit' value='Log In' class='but' />";
+            echo "<form action="login.php">";
+            echo "<input type="submit" value="Log In" class="but">";
             echo "</form>";
-            echo "<form action='signin.php'>";
-            echo "<input type='submit' value='Sign In' class='but' />";
+            echo "<form action="signin.php">";
+            echo "<input type="submit" value="Sign In" class="but">";
             echo "</form>";
         }
-    ?>
-</head>
-<body>
+    ?&gt;
+
+
     <nav class="navbar">
 
-        <div class="logo"><a href="/SAE-Projekt/index.html" > <font color="white">Blackline Solutions GmbH</font></a></div>
+        <div class="logo"><a href="/SAE-Projekt/index.html"> <font color="white">Blackline Solutions GmbH</font></a></div>
 
         <ul class="nav-links">
-            <input type="checkbox" id="checkbox_toggle" />
+            <input type="checkbox" id="checkbox_toggle">
             <label for="checkbox_toggle" class="hamburger">&#9776;</label>
                 <div class="menu">
                     <li><a href="/SAE-Projekt/index.html">Home</a></li>
                     <li><a href="/SAE-Projekt/pages/katalog.php">Katalog</a></li>
                     <li><a href="/SAE-Projekt/pages/impressum.html">Impressum</a></li>
-                    <li><a id="login" href="/SAE-Projekt/pages/login.php">Login</a></li>
+                    <li><a id="loginbtn" href="/SAE-Projekt/pages/login.php">Login</a></li>
                 </div>
         </ul>
     </nav>
 
     <center>
-        <?php
-            //Checken, ob der Kunde angemeldet ist oder nicht
+        <?php //Checken, ob der Kunde angemeldet ist oder nicht
             if ($kundeID == null)
             {
                 showToLogIn();
@@ -103,5 +94,5 @@
             }
         ?>
     </center>
-</body>
-</html>
+
+</body></html>

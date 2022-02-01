@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/login.css">
-    <meta http-equiv="refresh" content="3;url=/SAE-Projekt/pages/katalog.php" />
     <title>Login</title>
 
     <?php
@@ -71,6 +70,7 @@
 
             if ($kundeID == null)
             {
+                echo "<meta http-equiv='refresh' content='3;url=/SAE-Projekt/pages/login.php' />";
                 echo "<p>Nutzername oder Passwort ist falsch!</p>";
                 echo "<p>Bitte versuchen Sie es nochmal</p>";
                 echo "<form action='login.php' method='get'>";
@@ -80,10 +80,10 @@
             else
             {
               
-    
+                echo "<meta http-equiv='refresh' content='3;url=/SAE-Projekt/pages/katalog.php' />";
                 echo "<p>Herzlich Willkommen, ".$name."!</p>";
                 echo "<form action='katalog.php' method='get'>";
-                echo "Sie werden in 3 Sekunden weiter geleitet.";
+                echo "Sie werden in wenigen Sekunden weiter geleitet.";
                 //echo "<input type='submit' class='but' value='Los gehts!'>";
                 echo "</form>";
 

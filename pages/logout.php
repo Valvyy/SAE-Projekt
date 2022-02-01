@@ -4,6 +4,8 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="refresh" content="3;url=/SAE-Projekt/index.html" />
+
             <link rel="stylesheet" href="../style/style.css">
             <link rel="stylesheet" href="../style/login.css">
             <title>Log out</title>
@@ -30,7 +32,7 @@
                 session_start();
                 session_destroy();
 
-                echo "<p>Logout erfolgreich!</p>";
+                echo "<p class='center-text'><center>Logout erfolgreich! <br> Sie werden in wenigen Sekunden weitergeleitet</center></p>";
             ?>
         </body>
     </html>

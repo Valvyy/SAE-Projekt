@@ -92,6 +92,7 @@
         <?php
             if ($kundeID == null)
             {
+                echo "<meta http-equiv='refresh' content='3;url=/SAE-Projekt/pages/signin.php' />";
                 echo "<p>Nutzername oder Email existieren bereits!</p>";
                 echo "<p>Bitte versuchen Sie es nochmal</p>";
                 echo "<form action='signin.php' method='get'>";
@@ -100,6 +101,7 @@
             }
             else
             {
+                echo "<meta http-equiv='refresh' content='3;url=/SAE-Projekt/pages/katalog.php' />";
                 echo "<p>Herzlich Willkommen, ".$username."!</p>";
                 echo "<p>Sie wurden angemeldet!</p>";
                 echo "<p>Sie können jetzt einkaufen gehen. Viel Spaß!</p>";
