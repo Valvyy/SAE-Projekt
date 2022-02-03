@@ -27,8 +27,7 @@
                 warenLeeren();
             }
 
-
-            warenRein()
+            function warenRein()
             {
                 $connection = new mysqli('localhost', 'root', '', 'i40_basis');
 
@@ -57,7 +56,7 @@
                 }
             }
 
-            warenLeeren()
+            function warenLeeren()
             {
                 foreach ($_SESSION["warenkorb"] as $produkt => $menge)
                 {
@@ -65,7 +64,7 @@
                 }
             }
 
-            warenZeigen()
+            function warenZeigen()
             {
                 $connection = new mysqli('localhost', 'root', '', 'i40_basis');
 
@@ -77,7 +76,7 @@
                     $sql = "SELECT bezeichnung, preis FROM produkt WHERE produktid = '$produkt'";
                     $erg = $connection->query($sql);
                     $daten = mysqli_fetch_array($erg);
-                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$anzahl."</td><td>".$daten["preis"]."</td></tr>";
+                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$daten["preis"]."</td></tr>";
                 }
                 echo "</table>";
     
@@ -86,7 +85,7 @@
                 echo "</form>";
 
                 echo "<form action='warenkorb.php' method='get'>";
-                echo "<input type='submit' value='Warenkorb löschen' name='leeren'>";
+                echo "<input type='submit' value='Warenkorb löschen' name='empty'>";
                 echo "</form>";
             }
 
@@ -134,7 +133,7 @@
                 {
                     echo "<h1>Warenkorb</h1>";
 
-                    if (count($_SESSION["warenkorb"] == 0))
+                    if (count($_SESSION["warenkorb"]) == 0)
                     {
                         echo "<p>Puhh, sieht ganz schön leer aus. :/</p>";
                         echo "<p>Vielleicht hilft es, etwas zu kaufen.</p>";
@@ -145,7 +144,7 @@
                         
                     }
                     echo "<form action='katalog.php' method='get'>";
-                    echo "<input type='submit' value='Weiter einkaufen'>";
+                    echo "<input type='submit' value='Zurück zum Katalog'>";
                     echo "</form>";
                 }
             ?>
