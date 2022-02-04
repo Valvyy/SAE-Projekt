@@ -4,11 +4,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Anbindung der CSS-Dateien -->
         <link rel="stylesheet" href="../style/style.css">
         <link rel="stylesheet" href="../style/login.css">
         <title>Warenkorb</title>
 
         <?php
+            //Erzeugen der Session
             session_start();
 
             $kundeID = null;
@@ -69,7 +71,7 @@
                 $connection = new mysqli('localhost', 'root', '', 'i40_basis');
 
                 echo "<table>";
-                echo "<tr><th>Bestell-Nr,</th><th>Bezeichnung</th><th>Anzhahl</th><th>Preis</th></tr>";
+                echo "<tr><th>Bestell-Nr.</th><th>Bezeichnung</th><th>Anzhahl</th><th>Preis</th></tr>";
                 
                 foreach ($_SESSION["warenkorb"] as $produkt => $menge)
                 {
@@ -141,7 +143,6 @@
                     else
                     {
                         warenZeigen();
-                        
                     }
                     echo "<form action='katalog.php' method='get'>";
                     echo "<input type='submit' value='Zurück zum Katalog'>";
