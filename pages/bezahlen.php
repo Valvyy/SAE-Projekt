@@ -13,13 +13,14 @@
             //Erzeugen einer Session
             session_start();
 
+            //Zuweisen einer KundenID (Login Check)
             $kundeID = null;
-            $warenkorb = null;
             if (isset($_SESSION["kundeID"]))
             {
                 $kundeID = $_SESSION["kundeID"];
             }
 
+            //Produkte aus dem Warenkorb anzeigen (Bestellübersicht)
             function zeigBestellung()
             {
                 //DB-Verbindung
@@ -39,8 +40,9 @@
                     $sql = "SELECT bezeichnung, preis FROM produkt WHERE produktid = '$produkt'";
                     $erg = $connection->query($sql);
                     $daten = mysqli_fetch_array($erg);
-                    //Als Zeile in die Tabelle eintragen
+                    //Preise formatieren
                     $preis = number_format($daten["preis"], 2, ',', '.');
+                    //Als Zeile in die Tabelle eintragen
                     echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$preis." €</td></tr>";
                     $summe = $summe + $menge * $daten["preis"];
                 }
@@ -49,11 +51,33 @@
                 echo "</table>";   
             }
 
+
             function zeigBezahlmethoden()
             {
                 echo "<form action='bestellabschluss.php' method='get'>";
-                echo "<p>Bitte wählen Sie ein Zahlungsmittel</p>";
-                echo "<input type='button' name="
+                echo "<p>Bitte wählen Sie ein Zahlungsmittel</p><br>";
+                echo "<input type='radio' name='bezahlMethode' value='PayPal' checked>Paypal</input></br>";
+                echo "<input type='radio' name='bezahlMethode' value='VISA'>VISA</input></br>";
+                echo "<input type='radio' name='bezahlMethode' value='Klarna'>Klarna</input></br>";
+                echo "<input type='radio' name='bezahlMethode' value='SEPA-Lastschrift'>SEPA-Lastschriftmandat</input></br>";
+                echo "<br>";
+                echo "<input type='submit' value='Jetzt kaufen!'>";
+                echo "</form>";
+            }
+
+            //Zur Login-Page verweisen
+            function showToLogIn()
+            {
+                echo "<br><br><br>";
+                echo "<p class='cat'>Sie sind nicht angemeldet und können deswegen nicht auf den Katalog zugreifen.</p>";
+                echo "<p class='cat'>Melden Sie sich an oder registrieren Sie sich, um etwas bestellen zu können!</p>";
+                echo "<br><br><br>";
+                echo "<form action='login.php'>";
+                echo "<input type='submit' value='Log In' class='but' />";
+                echo "</form>";
+                echo "<form action='signin.php'>";
+                echo "<input type='submit' value='Sign In' class='but' />";
+                echo "</form>";
             }
         ?>
 
@@ -89,6 +113,41 @@
             </nav>
 
         </header>
+
+        <center>
+
+            <?php
+
+                //Wenn Kunde nicht eingeloggt
+                if ($kundeID == null)
+                {
+                    showToLogIn();
+                }
+                //Wenn Kunde eingeloggt
+                else
+                {
+                    echo "<h1>Bestellübersicht</h1>";
+
+                    //Wenn Warenkorb leer
+                    if (count($_SESSION["warenkorb"]) == 0 )
+                    {
+                        echo "<p>Entschuldigung, aber sie können nicht Nichts kaufen.</p>";
+                    }
+                    //Wenn Warenkorb befüllt
+                    else
+                    {
+                        zeigBestellung(); //Warenkorb anzeigen
+                        echo "<br>";
+                        zeigBezahlmethoden(); //Bezahlmethoden anzeigen
+                    }
+                    echo "<form action='katalog.php' method='get'>";
+                    echo "<input type='submit' value='Zurück zum Katalog'>";
+                    echo "</form>";
+                }
+
+            ?>
+
+        </center
 
     </body>
 </html>
