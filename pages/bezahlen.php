@@ -7,7 +7,7 @@
         <!-- Anbindung der CSS-Dateien -->
         <link rel="stylesheet" href="../style/style.css">
         <link rel="stylesheet" href="../style/login.css">
-        <title>Warenkorb</title>
+        <title>Bestellübersicht</title>
 
         <?php
             //Erzeugen einer Session
@@ -48,7 +48,7 @@
                 }
                 $summe = number_format($summe, 2, ',', '.');
                 echo "<tr><td colspan=3>Gesamt:</td><td>".$summe." €</td></tr>";
-                echo "</table>";   
+                echo "</table>";
             }
 
 
@@ -56,10 +56,10 @@
             {
                 echo "<form action='bestellabschluss.php' method='get'>";
                 echo "<p>Bitte wählen Sie ein Zahlungsmittel</p><br>";
-                echo "<input type='radio' name='bezahlMethode' value='PayPal' checked>Paypal</input></br>";
-                echo "<input type='radio' name='bezahlMethode' value='VISA'>VISA</input></br>";
-                echo "<input type='radio' name='bezahlMethode' value='Klarna'>Klarna</input></br>";
-                echo "<input type='radio' name='bezahlMethode' value='SEPA-Lastschrift'>SEPA-Lastschriftmandat</input></br>";
+                echo "<input type='radio' name='bzM' id='bzM' value='PayPal' checked>Paypal</input></br>";
+                echo "<input type='radio' name='bzM' id='bzM' value='VISA'>VISA</input></br>";
+                echo "<input type='radio' name='bzM' id='bzM' value='Klarna'>Klarna</input></br>";
+                echo "<input type='radio' name='bzM' id='bzM' value='SEPA-Lastschrift'>SEPA-Lastschriftmandat</input></br>";
                 echo "<br>";
                 echo "<input type='submit' value='Jetzt kaufen!'>";
                 echo "</form>";
