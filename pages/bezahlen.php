@@ -147,7 +147,7 @@
 
             ?>
 
-        </center
+        </center>
 
     </body>
 </html>
