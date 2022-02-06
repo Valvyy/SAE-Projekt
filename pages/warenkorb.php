@@ -94,6 +94,9 @@
                 echo "<table>";
                 echo "<tr><th>Bestell-Nr.</th><th>Bezeichnung</th><th>Anzhahl</th><th>Preis</th></tr>";
                 
+                //Gesamtwert des Warenkorbs
+                $summe = 0;
+
                 //Für jedes Produkt im Warenkorb
                 foreach ($_SESSION["warenkorb"] as $produkt => $menge)
                 {
@@ -102,8 +105,12 @@
                     $erg = $connection->query($sql);
                     $daten = mysqli_fetch_array($erg);
                     //Als Zeile in die Tabelle eintragen
-                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$daten["preis"]."</td></tr>";
+                    $preis = number_format($daten["preis"], 2, ',', '.');
+                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$preis." €</td></tr>";
+                    $summe = $summe + $menge * $daten["preis"];
                 }
+                $summe = number_format($summe, 2, ',', '.');
+                echo "<tr><td colspan=3>Gesamt:</td><td>".$summe." €</td></tr>";
                 echo "</table>";
     
                 //Weiterleitung zum Bestellabschluss
@@ -195,7 +202,7 @@
                     echo "</form>";
                 }
             ?>
-            
+
         </center>
 
     </body>
