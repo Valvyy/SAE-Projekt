@@ -10,10 +10,17 @@
         <title>Warenkorb</title>
 
         <?php
+
+            /*
+                Hier befindet sich ein Fehler, der aufgrund der fehlenden Zeit und Kapazität nicht
+                behoben werden konnte:
+                Wenn diese Seite neu geladen wird, werden die Produkte die aus dem Katalog ausgewählt wurden
+                immer wieder neu hinzugefügt.
+            */
+
             //Erzeugen der Session
             session_start();
 
-            
             $kundeID = null;
             $warenkorb = array();
             //Checken, ob Kunde angemeldet ist

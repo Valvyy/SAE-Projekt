@@ -7,9 +7,17 @@
         <!-- Anbindung der CSS-Dateien -->
         <link rel="stylesheet" href="../style/style.css">
         <link rel="stylesheet" href="../style/login.css">
-        <title>Warenkorb</title>
+        <title>Bestellung abgeschlossen!</title>
 
         <?php
+
+            /*
+                Hier befindet sich ein Fehler, der aufgrund der fehlenden Zeit und Kapazität nicht
+                behoben werden konnte:
+                Wenn die Webseite neu geladen wird, wird jedes Mal eine neue Bestellung in der Datenbank
+                erstellt und deshalb die Bestellungsverfolgung nicht richtig angezeigt werden kann
+            */
+
             //Erzeugen einer Session
             session_start();
 
@@ -20,10 +28,84 @@
                 $kundeID = $_SESSION["kundeID"];
             }
 
-            //Anzeigen des Status der Produkte
-            function traceOrder()
+            //Speichern der Bestellung
+            function enterOrder()
             {
+                //DB-Verbindung
+                $connection = new mysqli('localhost', 'root', '', 'i40_basis');
 
+                //Die letzte Warenkorbid auswählen
+                $sql = "SELECT MAX(warenkorbid) as warenkorbid FROM bestelluebersicht limit 1";
+                $result = $connection->query($sql);
+                $wkid = $result->fetch_object();
+
+                $wkid = $wkid->warenkorbid;
+                $wkid += 1;
+                //Warenkorbid global machen
+                $_SESSION["wkid"] = $wkid;
+                $kundeID = $_SESSION["kundeID"];
+
+                //Produkte aus dem Warenkorb in der Bestellübersicht speichern
+                foreach ($_SESSION["warenkorb"] as $produkte => $menge)
+                {
+                    $sql = "INSERT INTO bestelluebersicht (warenkorbid, konto, produkt) VALUES ('$wkid', '$kundeID', '$produkte')";
+                    $erg = $connection->query($sql);
+                }
+
+                //Bestell ID der Produkte sammeln
+                $sql = "SELECT bestellungsid FROM bestelluebersicht WHERE warenkorbid = '$wkid'";
+                $ergebnis = $connection->query($sql);
+
+                //Für jedes Produkt im Warenkorb
+                for ($i=0; $i<mysqli_num_rows($ergebnis); $i++)
+                {
+                    //Bestell ID speichern
+                    $bestid = $ergebnis->fetch_object();
+                    $bestid = $bestid->bestellungsid;
+
+                    //Produkt in Bestellposition setzen mit Status 'wird bearbeitet'
+                    $sql = "INSERT INTO bestellposition (bestellung, status) VALUES ('$bestid', 1)";
+                    $erg = $connection->query($sql);
+                }
+            }
+
+            function checkStatus($pr)
+            {
+                //DB-Verbindung
+                $connection = new mysqli('localhost', 'root', '', 'i40_basis');
+
+                //Warenkorb ID speichern
+                $wkid = $_SESSION["wkid"];
+
+                //Bestellungs ID speichern
+                $sql = "SELECT bestellungsid FROM bestelluebersicht WHERE warenkorbid = '$wkid' AND produkt = '$pr'";
+                $erg = $connection->query($sql);
+                $id = $erg->fetch_object();
+                $id = $id->bestellungsid;
+
+                //Status Information sammeln
+                $sql = "SELECT status FROM bestellposition WHERE bestellung = '$id'";
+                $erg = $connection->query($sql);
+                $status = $erg->fetch_object();
+                $status = $status->status;
+
+                //Status ausgeben
+                if ($status == 1)
+                {
+                    return "Wird bearbeitet";
+                }
+                elseif ($status == 2) 
+                {
+                    return "Wurde versandt";
+                }
+                elseif ($status == 3) 
+                {
+                    return "In Zustellung";
+                }
+                elseif ($status == 4) 
+                {
+                    return "Empfangen";
+                }
             }
 
             //Bestellte Produkte anzeigen
@@ -34,7 +116,7 @@
 
                 //Erstellen der Tabelle
                 echo "<table>";
-                echo "<tr><th>Bestell-Nr.</th><th>Bezeichnung</th><th>Anzhahl</th><th>Preis</th></tr>";
+                echo "<tr><th>Bestell-Nr.</th><th>Bezeichnung</th><th>Anzahl</th><th>Preis</th><th>Status</th></tr>";
                 
                 //Gesamtwert des Warenkorbs
                 $summe = 0;
@@ -49,7 +131,7 @@
                     //Preise formatieren
                     $preis = number_format($daten["preis"], 2, ',', '.');
                     //Als Zeile in die Tabelle eintragen
-                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$preis." €</td></tr>";
+                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$preis." €</td><td>".checkStatus($produkt)."</td></tr>";
                     $summe = $summe + $menge * $daten["preis"];
                 }
                 $summe = number_format($summe, 2, ',', '.');
@@ -129,7 +211,7 @@
                     echo "<br>";
                     echo "<p>Sie können Ihre Bestellung jetzt verfolgen</p>";
                     echo "<br>";
-                    traceOrder();
+                    enterOrder();
                 }
 
             ?>
