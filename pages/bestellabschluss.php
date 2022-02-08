@@ -195,7 +195,7 @@
                 //Wenn Kunde eingeloggt
                 else
                 {
-                    if ($_SESSION["wkid"] == 0)
+                    if ($_SESSION["wkid"] == null)
                     {
                         enterOrder();
                     }

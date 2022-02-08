@@ -20,6 +20,63 @@
                 $kundeID = $_SESSION["kundeID"];
             }
 
+            //Für den Kunden alle seine letzten Bestellung anzeigen
+            function showOrders($kundeID)
+            {
+                //DB-Verbindung
+                $connection = new mysqli('localhost', 'root', '', 'i40_basis');
+
+                //Erstellen der Tabelle
+                echo "<table>";
+                echo "<tr><th>Bestell-Nr.</th><th>Bezeichnung</th><th>Preis</th><th>Status</th></tr>";
+
+                //Alle Bestellungen des Kunden sammeln
+                $sql = "SELECT bestellungsid, produkt FROM bestelluebersicht WHERE konto = '$kundeID'";
+                $erg = $connection->query($sql);
+
+                //Für jede Bestellung des Kunden
+                for ($i = 0; $i < mysqli_num_rows($erg); $i++)
+                {
+                    $daten = mysqli_fetch_array($erg);
+
+                    //Bezeichnung und Preis sammeln
+                    $sql = "SELECT bezeichnung, preis FROM produkt WHERE produktid = '".$daten["produkt"]."'";
+                    $result = $connection->query($sql);
+                    $data = mysqli_fetch_array($result);
+
+                    //Status der Bestellungen sammeln
+                    $sql = "SELECT status FROM bestellposition WHERE bestellung = '".$daten["bestellungsid"]."'";
+                    $result = $connection->query($sql);
+                    $status = $result->fetch_object();
+                    $status = $status->status;
+
+                    //Status ausgeben
+                    if ($status == 1)
+                    {
+                        $status = "Wird bearbeitet";
+                    }
+                    elseif ($status == 2) 
+                    {
+                        $status = "Wurde versandt";
+                    }
+                    elseif ($status == 3) 
+                    {
+                        $status = "In Zustellung";
+                    }
+                    elseif ($status == 4) 
+                    {
+                        $status = "Empfangen";
+                    }
+
+                    //Tabelle befüllen
+                    $preis = number_format($data["preis"], 2, ',', '.');
+                    echo "<tr><td>".$daten["bestellungsid"]."</td><td>".$data["bezeichnung"]."</td><td>".$preis." €</td><td>".$status."</td></tr>";
+                }
+                echo "</table>";
+            }
+
+
+
             //Funktion, die verwendet wird, wenn nicht eingeloggt
             function login() 
             {
@@ -87,6 +144,13 @@
                 }
                 else
                 {
+                    echo "<h1>Ihre letzte Bestellung</h1>";
+                    echo "<br>";
+                    echo "<br>";
+                    showOrders($kundeID);
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
                     alreadyLoggedIn();
                 }
             ?>
