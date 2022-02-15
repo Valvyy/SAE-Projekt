@@ -113,21 +113,22 @@
                     $daten = mysqli_fetch_array($erg);
                     //Als Zeile in die Tabelle eintragen
                     $preis = number_format($daten["preis"], 2, ',', '.');
-                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$preis." €</td></tr>";
+                    echo "<tr><td>".$produkt."</td><td>".$daten["bezeichnung"]."</td><td>".$menge."</td><td>".$preis."€</td></tr>";
                     $summe = $summe + $menge * $daten["preis"];
                 }
                 $summe = number_format($summe, 2, ',', '.');
-                echo "<tr><td colspan=3>Gesamt:</td><td>".$summe." €</td></tr>";
+                echo "<tr><td colspan=3><b>Gesamt:</b></td><td><b>".$summe." €</b></td></tr>";
                 echo "</table>";
+                echo "<br> <br>";
     
                 //Weiterleitung zum Bestellabschluss
                 echo "<form action='bezahlen.php' method='get'>";
-                echo "<input type='submit' value='Jetzt kaufen!'>";
+                echo "<input type='submit' class='but' value='Jetzt kaufen!'>";
                 echo "</form>";
 
                 //Warenkorb leeren
                 echo "<form action='warenkorb.php' method='get'>";
-                echo "<input type='submit' value='Warenkorb leeren' name='empty'>";
+                echo "<input type='submit' class='but' value='Warenkorb leeren' name='empty'>";
                 echo "</form>";
             }
 
@@ -205,7 +206,7 @@
                         warenZeigen();
                     }
                     echo "<form action='katalog.php' method='get'>";
-                    echo "<input type='submit' value='Zurück zum Katalog'>";
+                    echo "<input type='submit' class='but' value='Zurück zum Katalog'>";
                     echo "</form>";
                 }
             ?>

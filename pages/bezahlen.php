@@ -47,8 +47,9 @@
                     $summe = $summe + $menge * $daten["preis"];
                 }
                 $summe = number_format($summe, 2, ',', '.');
-                echo "<tr><td colspan=3>Gesamt:</td><td>".$summe." €</td></tr>";
+                echo "<tr><td colspan=3 text-align='left'><b>Gesamt:</b></td><td><b>".$summe." €</b></td></tr>";
                 echo "</table>";
+                echo "<br> <br>";
             }
 
 
@@ -56,12 +57,14 @@
             {
                 echo "<form action='bestellabschluss.php' method='get'>";
                 echo "<p>Bitte wählen Sie ein Zahlungsmittel</p><br>";
-                echo "<input type='radio' name='bzM' id='bzM' value='PayPal' checked>Paypal</input></br>";
-                echo "<input type='radio' name='bzM' id='bzM' value='VISA'>VISA</input></br>";
-                echo "<input type='radio' name='bzM' id='bzM' value='Klarna'>Klarna</input></br>";
-                echo "<input type='radio' name='bzM' id='bzM' value='SEPA-Lastschrift'>SEPA-Lastschriftmandat</input></br>";
+                echo "<div class='radiocont'>";
+                echo "<input type='radio' name='bzM' id='bzMP' value='PayPal' checked></input><label for='bzMP'>Paypal</label></br>";
+                echo "<input type='radio' name='bzM' id='bzMV' value='VISA'></input><label for='bzMV'>VISA</label></br>";
+                echo "<input type='radio' name='bzM' id='bzMK' value='Klarna'></input><label for='bzMK'>Klarna</label></br>";
+                echo "<input type='radio' name='bzM' id='bzMS' value='SEPA-Lastschrift'></input><label for='bzMS'>SEPA-Lastschriftmandat</label></br>";
+                echo "</div>";
                 echo "<br>";
-                echo "<input type='submit' value='Jetzt kaufen!'>";
+                echo "<input type='submit' class='but' value='Jetzt kaufen!'>";
                 echo "</form>";
             }
 
@@ -141,7 +144,7 @@
                         zeigBezahlmethoden(); //Bezahlmethoden anzeigen
                     }
                     echo "<form action='katalog.php' method='get'>";
-                    echo "<input type='submit' value='Zurück zum Katalog'>";
+                    echo "<input type='submit' class='but' value='Zurück zum Katalog'>";
                     echo "</form>";
                 }
 
