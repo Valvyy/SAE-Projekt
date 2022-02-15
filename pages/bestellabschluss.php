@@ -11,13 +11,6 @@
 
         <?php
 
-            /*
-                Hier befindet sich ein Fehler, der aufgrund der fehlenden Zeit und Kapazität nicht
-                behoben werden konnte:
-                Wenn die Webseite neu geladen wird, wird jedes Mal eine neue Bestellung in der Datenbank
-                erstellt und deshalb die Bestellungsverfolgung nicht richtig angezeigt werden kann
-            */
-
             //Erzeugen einer Session
             session_start();
 
@@ -41,6 +34,7 @@
 
                 $wkid = $wkid->warenkorbid;
                 $wkid += 1;
+                
                 //Warenkorbid global machen
                 $_SESSION["wkid"] = $wkid;
                 $kundeID = $_SESSION["kundeID"];
@@ -201,6 +195,10 @@
                 //Wenn Kunde eingeloggt
                 else
                 {
+                    if ($_SESSION["wkid"] == null)
+                    {
+                        enterOrder();
+                    }
                     echo "<h1>Bestellung abgeschlossen!</h1>";
                     echo "<br>";
                     echo "<h3>Vielen Dank für ihren Einkauf</h3>";
@@ -211,7 +209,6 @@
                     echo "<br>";
                     echo "<p>Sie können Ihre Bestellung jetzt verfolgen</p>";
                     echo "<br>";
-                    enterOrder();
                 }
 
             ?>
